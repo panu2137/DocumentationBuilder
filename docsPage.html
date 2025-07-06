@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lingaway Documentation Library</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins';
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            min-height: calc(100vh - 200px);
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        /* Filters and Search */
+        .filters-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Documentation Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .doc-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid #e9ecef;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .doc-type-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            margin-bottom: 1rem;
+        }
+
+        .doc-type-tutorial { background: #e3f2fd; color: #1976d2; }
+        .doc-type-api-reference { background: #f3e5f5; color: #7b1fa2; }
+        .doc-type-guide { background: #e8f5e8; color: #388e3c; }
+        .doc-type-troubleshooting { background: #fff3e0; color: #f57c00; }
+        .doc-type-changelog { background: #fce4ec; color: #c2185b; }
+
+        .doc-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .doc-description {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .doc-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #adb5bd;
+            margin-bottom: 1rem;
+        }
+
+        .doc-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border-radius: 6px;
+        }
+
+        .btn-view {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-edit {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #218838;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .btn-export {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #5a6268;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6c757d;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        /* Stats */
+        .stats-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+
+        /* Modal for viewing documentation */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 16px;
+            width: 95%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .close {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            height: 70vh;
+            overflow-y: auto;
+        }
+
+        .doc-content {
+            line-height: 1.8;
+        }
+
+        .doc-content h1, .doc-content h2, .doc-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .doc-content h1 {
+            font-size: 2rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .doc-content h2 {
+            font-size: 1.5rem;
+        }
+
+        .doc-content h3 {
+            font-size: 1.2rem;
+        }
+
+        .doc-content code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .doc-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .doc-content ul, .doc-content ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .doc-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <a href="./mainPage.html" class="logo">📚 Lingaway Docs</a>
+            <div class="header-actions">
+                <button id="exportAll" class="btn btn-primary">📤 Export All</button>
+                <button id="importDocs" class="btn btn-primary">📥 Import Docs</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        <div class="page-header">
+            <h1>Documentation Library</h1>
+            <p>Manage and organize all your Lingaway documentation in one place</p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalDocs">0</div>
+                    <div class="stat-label">Total Documents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTutorials">0</div>
+                    <div class="stat-label">Tutorials</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalGuides">0</div>
+                    <div class="stat-label">Guides</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalApiRefs">0</div>
+                    <div class="stat-label">API References</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="searchInput">Search Documentation</label>
+                    <input type="text" id="searchInput" placeholder="Search by title or description...">
+                </div>
+                <div class="filter-group">
+                    <label for="typeFilter">Filter by Type</label>
+                    <select id="typeFilter">
+                        <option value="">All Types</option>
+                        <option value="tutorial">Tutorial</option>
+                        <option value="api-reference">API Reference</option>
+                        <option value="guide">Guide</option>
+                        <option value="troubleshooting">Troubleshooting</option>
+                        <option value="changelog">Changelog</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortBy">Sort By</label>
+                    <select id="sortBy">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="title">Title A-Z</option>
+                        <option value="type">Type</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button id="clearFilters" class="btn btn-secondary">Clear Filters</button>
+                <button id="refreshDocs" class="btn btn-primary">🔄 Refresh</button>
+            </div>
+        </div>
+
+        <!-- Documentation Grid -->
+        <div id="docsContainer">
+            <div class="docs-grid" id="docsGrid">
+                <!-- Documentation cards will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-state-icon">📝</div>
+            <h3>No Documentation Found</h3>
+            <p>Start by creating your first documentation or adjust your filters.</p>
+            <button id="createFirstDoc" class="btn btn-primary" style="margin-top: 1rem;">Create First Documentation</button>
+        </div>
+    </div>
+</main>
+
+<!-- Modal for viewing documentation -->
+<div id="viewModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Documentation Title</h2>
+            <button class="close" id="closeModal" onclick="closeModal()" style="background-color: transparent; border: none">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="modalContent" class="doc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden file input for import -->
+<input type="file" id="fileInput" accept=".json" style="display: none;">
+
+<script>
+    // Documentation management
+    let allDocs = [];
+    let filteredDocs = [];
+
+    // Sample initial data for demonstration
+    const sampleDocs = [
+        {
+            id: 'doc-1',
+            title: 'Getting Started with Lingaway',
+            description: 'A comprehensive guide to get you started with the Lingaway platform.',
+            content: `# Getting Started with Lingaway
+
+## Introduction
+Welcome to Lingaway! This guide will help you get started with our platform.
+
+## First Steps
+1. Create your account
+2. Set up your profile
+3. Explore the dashboard
+
+## Basic Features
+- **Document Management**: Create and organize your documents
+- **Collaboration**: Work with your team
+- **Export Options**: Download your work in various formats
+
+## Next Steps
+Once you're familiar with the basics, check out our advanced tutorials.`,
+            type: 'tutorial',
+            createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+        },
+        {
+            id: 'doc-2',
+            title: 'API Reference Guide',
+            description: 'Complete API documentation for developers integrating with Lingaway.',
+            content: `# API Reference Guide
+
+## Authentication
+All API requests require authentication using API keys.
+
+\`\`\`javascript
+const apiKey = 'your-api-key';
+fetch('/api/endpoint', {
+    headers: {
+        'Authorization': 'Bearer ' + apiKey
+    }
+});
+\`\`\`
+
+## Endpoints
+
+### GET /api/docs
+Retrieve all documents.
+
+### POST /api/docs
+Create a new document.
+
+### PUT /api/docs/:id
+Update an existing document.
+
+### DELETE /api/docs/:id
+Delete a document.`,
+            type: 'api-reference',
+            createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+        },
+        {
+            id: 'doc-3',
+            title: 'Troubleshooting Common Issues',
+            description: 'Solutions to frequently encountered problems and their fixes.',
+            content: `# Troubleshooting Common Issues
+
+## Login Problems
+If you're having trouble logging in:
+1. Check your credentials
+2. Clear browser cache
+3. Try incognito mode
+
+## Performance Issues
+For slow loading times:
+- Check your internet connection
+- Disable browser extensions
+- Contact support if issues persist
+
+## Export Problems
+If exports are failing:
+1. Check file size limits
+2. Verify export format
+3. Try again after a few minutes`,
+            type: 'troubleshooting',
+            createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+            updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
+        }
+    ];
+
+    // Initialize the application
+    function initApp() {
+        // Load docs from localStorage or use sample data
+        const stored = localStorage.getItem('lingaway-docs');
+        if (stored) {
+            allDocs = JSON.parse(stored);
+        } else {
+            allDocs = [...sampleDocs];
+            saveDocs();
+        }
+
+        filteredDocs = [...allDocs];
+        updateStats();
+        renderDocs();
+    }
+
+    // Load documentation from localStorage
+    function loadDocs() {
+        const stored = localStorage.getItem('lingaway-docs');
+        allDocs = stored ? JSON.parse(stored) : [...sampleDocs];
+        filteredDocs = [...allDocs];
+        updateStats();
+        renderDocs();
+    }
+
+    // Save documentation to localStorage
+    function saveDocs() {
+        localStorage.setItem('lingaway-docs', JSON.stringify(allDocs));
+    }
+
+    // Update statistics
+    function updateStats() {
+        const stats = {
+            total: allDocs.length,
+            tutorial: allDocs.filter(doc => doc.type === 'tutorial').length,
+            guide: allDocs.filter(doc => doc.type === 'guide').length,
+            apiRef: allDocs.filter(doc => doc.type === 'api-reference').length
+        };
+
+        document.getElementById('totalDocs').textContent = stats.total;
+        document.getElementById('totalTutorials').textContent = stats.tutorial;
+        document.getElementById('totalGuides').textContent = stats.guide;
+        document.getElementById('totalApiRefs').textContent = stats.apiRef;
+    }
+
+    // Render documentation cards
+    function renderDocs() {
+        const docsGrid = document.getElementById('docsGrid');
+        const emptyState = document.getElementById('emptyState');
+
+        if (filteredDocs.length === 0) {
+            docsGrid.innerHTML = '';
+            emptyState.style.display = 'block';
+            return;
+        }
+
+        emptyState.style.display = 'none';
+
+        docsGrid.innerHTML = filteredDocs.map(doc => `
+        <div class="doc-card">
+            <span class="doc-type-badge doc-type-${doc.type}">${doc.type.replace('-', ' ')}</span>
+            <h3 class="doc-title">${escapeHtml(doc.title)}</h3>
+            <p class="doc-description">${escapeHtml(doc.description)}</p>
+            <div class="doc-meta">
+                <span>Created: ${new Date(doc.createdAt).toLocaleDateString()}</span>
+                <span>Updated: ${new Date(doc.updatedAt).toLocaleDateString()}</span>
+            </div>
+            <div class="doc-actions">
+                <button class="btn btn-view btn-sm" onclick="viewDoc('${doc.id}')">👁️ View</button>
+                <button class="btn btn-edit btn-sm" onclick="editDoc('${doc.id}')">✏️ Edit</button>
+                <button class="btn btn-export btn-sm" onclick="exportDoc('${doc.id}')">📤 Export</button>
+                <button class="btn btn-delete btn-sm" onclick="deleteDoc('${doc.id}')">🗑️ Delete</button>
+            </div>
+        </div>
+    `).join('');
+    }
+
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Convert markdown to HTML (basic implementation)
+    function markdownToHtml(markdown) {
+        // Store code blocks temporarily to protect them from other transformations
+        const codeBlocks = [];
+        const codeBlockPlaceholder = '___CODE_BLOCK_PLACEHOLDER___';
+
+        // Extract and store code blocks
+        let processedMarkdown = markdown.replace(/```([\s\S]*?)```/g, (match, code) => {
+            codeBlocks.push(code);
+            return codeBlockPlaceholder + (codeBlocks.length - 1) + codeBlockPlaceholder;
+        });
+
+        // Store inline code temporarily
+        const inlineCode = [];
+        const inlineCodePlaceholder = '___INLINE_CODE_PLACEHOLDER___';
+
+        processedMarkdown = processedMarkdown.replace(/`(.*?)`/g, (match, code) => {
+            inlineCode.push(code);
+            return inlineCodePlaceholder + (inlineCode.length - 1) + inlineCodePlaceholder;
+        });
+
+        // Apply other markdown transformations
+        processedMarkdown = processedMarkdown
+            .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+            .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+            .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .replace(/^(.)/gm, '<p>$1')
+            .replace(/(.*$)/gm, '$1</p>')
+            .replace(/<p><\/p>/g, '')
+            .replace(/<p><h/g, '<h')
+            .replace(/<\/h([123])><\/p>/g, '</h$1>');
+
+        // Function to escape HTML entities to prevent code from being rendered as HTML
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // Function to get language icon based on first line of code
+        function getLanguageIcon(firstLine) {
+            const line = firstLine.toLowerCase().trim();
+
+            // Language detection patterns
+            if (line.includes('javascript') || line.includes('js') || line.includes('function') || line.includes('const ') || line.includes('let ') || line.includes('var ')) {
+                return '<i class="devicon-javascript-plain colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else if (line.includes('python') || line.includes('def ') || line.includes('import ') || line.includes('from ')) {
+                return '<i class="devicon-python-plain colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else if (line.includes('html') || line.includes('<!doctype') || line.includes('<html')) {
+                return '<i class="devicon-html5-plain colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else if (line.includes('css') || line.includes('style') || line.includes('{') && line.includes('}')) {
+                return '<i class="devicon-css3-plain colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else if (line.includes('java') || line.includes('class ') || line.includes('public ')) {
+                return '<i class="devicon-java-plain colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else if (line.includes('c++') || line.includes('cpp') || line.includes('#include')) {
+                return '<i class="devicon-cplusplus-plain colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else if (line.includes('react') || line.includes('jsx')) {
+                return '<i class="devicon-react-original colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else if (line.includes('node') || line.includes('npm')) {
+                return '<i class="devicon-nodejs-plain colored" style="font-size: 16px; margin-right: 8px;"></i>';
+            } else {
+                return '<i class="devicon-code-plain" style="font-size: 16px; margin-right: 8px;"></i>';
+            }
+        }
+
+        // Restore inline code with HTML entities escaped
+        processedMarkdown = processedMarkdown.replace(
+            new RegExp(inlineCodePlaceholder + '(\\d+)' + inlineCodePlaceholder, 'g'),
+            (match, index) => `<code>${escapeHtml(inlineCode[parseInt(index)])}</code>`
+        );
+
+        // Restore code blocks with HTML entities escaped and first line replaced with icon
+        processedMarkdown = processedMarkdown.replace(
+            new RegExp(codeBlockPlaceholder + '(\\d+)' + codeBlockPlaceholder, 'g'),
+            (match, index) => {
+                const codeContent = codeBlocks[parseInt(index)];
+                const lines = codeContent.split('\n');
+
+                if (lines.length > 0) {
+                    const firstLine = lines[0].trim();
+                    const icon = getLanguageIcon(firstLine);
+                    const remainingCode = lines.slice(1).join('\n');
+
+                    return `<pre><code><div style="display: flex; align-items: center; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #444;">${icon}<span style="color: #888; font-size: 12px;">${escapeHtml(firstLine)}</span></div>${escapeHtml(remainingCode)}</code></pre>`;
+                }
+
+                return `<pre><code>${escapeHtml(codeContent)}</code></pre>`;
+            }
+        );
+
+        return processedMarkdown;
+    }
+
+    // View documentation
+    function viewDoc(id) {
+        const doc = allDocs.find(d => d.id === id);
+        if (!doc) return;
+
+        document.getElementById('modalTitle').textContent = doc.title;
+        document.getElementById('modalContent').innerHTML = markdownToHtml(doc.content);
+        document.getElementById('viewModal').style.display = 'block';
+    }
+
+    // Edit documentation
+    function editDoc(id) {
+        const doc = allDocs.find(d => d.id === id);
+        if (!doc) return;
+
+        // Create a simple edit form
+        const editForm = `
+        <form id="editForm">
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Title:</label>
+                <input type="text" id="editTitle" value="${escapeHtml(doc.title)}" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;" required>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Type:</label>
+                <select id="editType" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;" required>
+                    <option value="tutorial" ${doc.type === 'tutorial' ? 'selected' : ''}>Tutorial</option>
+                    <option value="api-reference" ${doc.type === 'api-reference' ? 'selected' : ''}>API Reference</option>
+                    <option value="guide" ${doc.type === 'guide' ? 'selected' : ''}>Guide</option>
+                    <option value="troubleshooting" ${doc.type === 'troubleshooting' ? 'selected' : ''}>Troubleshooting</option>
+                    <option value="changelog" ${doc.type === 'changelog' ? 'selected' : ''}>Changelog</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Description:</label>
+                <textarea id="editDescription" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; height: 80px;" required>${escapeHtml(doc.description)}</textarea>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Content (Markdown):</label>
+                <textarea id="editContent" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; height: 300px; font-family: monospace;" required>${escapeHtml(doc.content)}</textarea>
+            </div>
+            <div style="text-align: right;">
+                <button type="button" onclick="closeModal()" style="margin-right: 1rem; padding: 0.5rem 1rem; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
+                <button type="submit" style="padding: 0.5rem 1rem; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Save Changes</button>
+            </div>
+        </form>
+    `;
+
+        document.getElementById('modalTitle').textContent = `Edit: ${doc.title}`;
+        document.getElementById('modalContent').innerHTML = editForm;
+        document.getElementById('viewModal').style.display = 'block';
+
+        // Handle form submission
+        document.getElementById('editForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            doc.title = document.getElementById('editTitle').value;
+            doc.type = document.getElementById('editType').value;
+            doc.description = document.getElementById('editDescription').value;
+            doc.content = document.getElementById('editContent').value;
+            doc.updatedAt = new Date().toISOString();
+
+            saveDocs();
+            closeModal();
+            loadDocs();
+            showNotification('Documentation updated successfully!', 'success');
+        });
+    }
+
+    // Delete documentation
+    function deleteDoc(id) {
+        const doc = allDocs.find(d => d.id === id);
+        if (!doc) return;
+
+        if (confirm(`Are you sure you want to delete "${doc.title}"?`)) {
+            allDocs = allDocs.filter(d => d.id !== id);
+            saveDocs();
+            loadDocs();
+            showNotification('Documentation deleted successfully!', 'success');
+        }
+    }
+
+    // Export single documentation
+    function exportDoc(id) {
+        const doc = allDocs.find(d => d.id === id);
+        if (!doc) return;
+
+        const dataStr = JSON.stringify(doc, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+        const exportFileDefaultName = `${doc.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`;
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+
+        showNotification('Documentation exported successfully!', 'success');
+    }
+
+    // Export all documentation
+    function exportAll() {
+        if (allDocs.length === 0) {
+            showNotification('No documentation to export!', 'warning');
+            return;
+        }
+
+        const dataStr = JSON.stringify(allDocs, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+        const exportFileDefaultName = `lingaway_docs_${new Date().toISOString().split('T')[0]}.json`;
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+
+        showNotification('All documentation exported successfully!', 'success');
+    }
+
+    // Import documentation
+    function importDocs() {
+        document.getElementById('fileInput').click();
+    }
+
+    // Handle file import
+    document.getElementById('fileInput').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const importedDocs = JSON.parse(e.target.result);
+                let importedCount = 0;
+
+                if (Array.isArray(importedDocs)) {
+                    // Merge with existing docs
+                    importedDocs.forEach(doc => {
+                        if (!allDocs.find(d => d.id === doc.id)) {
+                            allDocs.push(doc);
+                            importedCount++;
+                        }
+                    });
+                } else if (importedDocs.id) {
+                    // Single doc
+                    if (!allDocs.find(d => d.id === importedDocs.id)) {
+                        allDocs.push(importedDocs);
+                        importedCount = 1;
+                    }
+                }
+
+                if (importedCount > 0) {
+                    saveDocs();
+                    loadDocs();
+                    showNotification(`Successfully imported ${importedCount} documentation(s)!`, 'success');
+                } else {
+                    showNotification('No new documentation to import (all documents already exist)', 'info');
+                }
+            } catch (error) {
+                showNotification('Error importing file: Invalid JSON format', 'error');
+            }
+        };
+        reader.readAsText(file);
+    });
+    // Filter and search functionality
+    function applyFilters() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const typeFilter = document.getElementById('typeFilter').value;
+        const sortBy = document.getElementById('sortBy').value;
+
+        // Filter docs
+        filteredDocs = allDocs.filter(doc => {
+            const matchesSearch = doc.title.toLowerCase().includes(searchTerm) ||
+                doc.description.toLowerCase().includes(searchTerm) ||
+                doc.content.toLowerCase().includes(searchTerm);
+            const matchesType = !typeFilter || doc.type === typeFilter;
+
+            return matchesSearch && matchesType;
+        });
+
+        // Sort docs
+        filteredDocs.sort((a, b) => {
+            switch (sortBy) {
+                case 'newest':
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                case 'oldest':
+                    return new Date(a.createdAt) - new Date(b.createdAt);
+                case 'title':
+                    return a.title.localeCompare(b.title);
+                case 'type':
+                    return a.type.localeCompare(b.type);
+                default:
+                    return 0;
+            }
+        });
+
+        renderDocs();
+    }
+
+    // Clear filters
+    function clearFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('typeFilter').value = '';
+        document.getElementById('sortBy').value = 'newest';
+        applyFilters();
+    }
+
+    // Modal functionality
+    function closeModal() {
+        document.getElementById('viewModal').style.display = 'none';
+    }
+
+    // Show notification
+    function showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        z-index: 10000;
+        transition: all 0.3s ease;
+        transform: translateX(100%);
+        opacity: 0;
+    `;
+
+        // Set background color based on type
+        const colors = {
+            success: '#28a745',
+            error: '#dc3545',
+            warning: '#ffc107',
+            info: '#17a2b8'
+        };
+
+        notification.style.backgroundColor = colors[type] || colors.info;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+            notification.style.opacity = '1';
+        }, 100);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize the app
+        initApp();
+
+        // Search and filter events
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('typeFilter').addEventListener('change', applyFilters);
+        document.getElementById('sortBy').addEventListener('change', applyFilters);
+
+        // Button events
+        document.getElementById('clearFilters').addEventListener('click', clearFilters);
+        document.getElementById('refreshDocs').addEventListener('click', loadDocs);
+        document.getElementById('exportAll').addEventListener('click', exportAll);
+        document.getElementById('importDocs').addEventListener('click', importDocs);
+        document.getElementById('addNewDoc').addEventListener('click', addNewDoc);
+        document.getElementById('createFirstDoc').addEventListener('click', addNewDoc);
+
+        // Modal events
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === document.getElementById('viewModal')) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('viewModal').style.display === 'block') {
+                closeModal();
+            }
+        });
+    });
+
+    // Make functions available globally
+    window.viewDoc = viewDoc;
+    window.editDoc = editDoc;
+    window.deleteDoc = deleteDoc;
+    window.exportDoc = exportDoc;
+    window.closeModal = closeModal;
+    window.addNewDoc = addNewDoc;
+</script>
